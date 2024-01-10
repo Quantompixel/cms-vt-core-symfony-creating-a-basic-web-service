@@ -21,28 +21,16 @@ class EntryRepository extends ServiceEntityRepository
         parent::__construct($registry, Entry::class);
     }
 
-//    /**
-//     * @return Entry[] Returns an array of Entry objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findRandom(): ?Entry
+    {
+        $entries = $this->findAll();
 
-//    public function findOneBySomeField($value): ?Entry
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if (sizeof($entries) === 0) {
+            return null;
+        }
+
+        $randomIndex = random_int(0, sizeof($entries) - 1);
+
+        return $entries[$randomIndex];
+    }
 }
